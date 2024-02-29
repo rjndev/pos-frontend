@@ -71,7 +71,7 @@ export default function ManageItems() {
         />
       </div>
       {/* List container  */}
-      <div className="mt-6 space-y-2 overflow-auto max-h-[590px] px-2">
+      <div className="mt-6 space-y-2 overflow-auto h-full px-2">
         {filteredItems?.map((item) => (
           <ManageItemRow key={item.id} item={item} />
         ))}

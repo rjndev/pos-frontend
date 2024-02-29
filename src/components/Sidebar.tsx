@@ -4,7 +4,7 @@ import { BiCategory } from "react-icons/bi";
 
 export default function Sidebar() {
   return (
-    <div className="bg-white rounded-lg min-w-[250px] h-[750px] ml-[-4px] py-4 ">
+    <div className="bg-white rounded-lg min-w-[250px] max-h-[750px] h-fit ml-[-4px] py-6 ">
       <div className="flex gap-2">
         <h1 className="mx-auto font-bold text-2xl">
           <span className="text-black ">Pay</span>
