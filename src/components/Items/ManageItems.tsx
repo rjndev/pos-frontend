@@ -41,7 +41,7 @@ export default function ManageItems() {
 
   return (
     <>
-      <div className="flex items-center justify-between pr-6">
+      <div className="flex items-center justify-between pr-6 ">
         <h2 className="text-black font-bold text-xl">Manage Items</h2>
         <button
           onClick={() => setShowEditModal(true)}
@@ -77,7 +77,7 @@ export default function ManageItems() {
         />
       </div>
       {/* List container  */}
-      <div className="mt-10 space-y-2">
+      <div className="mt-10 space-y-2 overflow-auto max-h-[570px] px-2">
         {filteredItems?.map((item) => (
           <ManageItemRow key={item.id} item={item} />
         ))}
