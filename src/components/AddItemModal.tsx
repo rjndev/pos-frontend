@@ -29,13 +29,6 @@ export default function MyModal({
   }
 
   async function handleSubmitButton() {
-    console.log(name);
-    console.log(price);
-    console.log(stock);
-    console.log(hasOptions);
-    console.log(selectedCategory);
-    console.log(img);
-
     await addItem(name, selectedCategory.id, price!, stock!, hasOptions, img);
   }
 

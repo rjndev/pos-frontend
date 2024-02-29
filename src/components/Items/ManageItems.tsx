@@ -33,12 +33,6 @@ export default function ManageItems() {
         .map((item) => item)
     : [];
 
-  console.log("ITEMS");
-  console.log(filteredItems);
-
-  console.log("CATEGORIES");
-  console.log(categories);
-
   return (
     <>
       <div className="flex items-center justify-between pr-6 ">

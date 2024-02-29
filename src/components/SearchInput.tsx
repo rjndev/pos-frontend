@@ -27,9 +27,6 @@ export default function SearchInput({
   });
   const [query, setQuery] = useState("");
 
-  console.log("SELECTED");
-  console.log(selected);
-
   const filteredItems =
     query === ""
       ? itemMapList
