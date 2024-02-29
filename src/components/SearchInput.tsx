@@ -47,7 +47,7 @@ export default function SearchInput({
                 selected.id === "-1" ? "text-gray-400" : "text-gray-900"
               }`}
               placeholder={placeholder}
-              displayValue={(item: any) => item.name}
+              displayValue={(item: SearchOption) => item.name}
               onChange={(event) => setQuery(event.target.value)}
             />
             {selected.id !== "-1" && (
