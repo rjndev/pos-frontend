@@ -19,6 +19,7 @@ export default function ManageItems() {
     name: "",
   });
   const [showEditModal, setShowEditModal] = useState(false);
+  const [clickedItem, setClickedItem] = useState<Item>();
 
   const filteredItems = !itemsLoading
     ? items
@@ -73,14 +74,31 @@ export default function ManageItems() {
       {/* List container  */}
       <div className="mt-6 space-y-2 overflow-auto h-full px-2">
         {filteredItems?.map((item) => (
-          <ManageItemRow key={item.id} item={item} />
+          <ManageItemRow
+            setClickedItem={setClickedItem}
+            setShowEditModal={setShowEditModal}
+            key={item.id}
+            item={item}
+          />
         ))}
       </div>
-      <AddItemModal isOpen={showEditModal} setIsOpen={setShowEditModal} />
+      <AddItemModal
+        item={clickedItem}
+        isOpen={showEditModal}
+        setIsOpen={setShowEditModal}
+      />
     </>
   );
 }
-function ManageItemRow({ item }: { item: Item }) {
+function ManageItemRow({
+  item,
+  setClickedItem,
+  setShowEditModal,
+}: {
+  item: Item;
+  setClickedItem: React.Dispatch<React.SetStateAction<Item | undefined>>;
+  setShowEditModal: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   return (
     <div className="flex justify-between items-center gap-x-12 border px-6 py-2 rounded-lg">
       <img src={item.imgUrl} className="rounded-full h-12 w-12" alt="" />
@@ -97,7 +115,13 @@ function ManageItemRow({ item }: { item: Item }) {
       </div>
 
       <div className="flex gap-2">
-        <div className="rounded-full h-8 w-8 hover:cursor-pointer hover:bg-neutral-300 transition-colors flex justify-center items-center bg-neutral-200">
+        <div
+          onClick={() => {
+            setClickedItem(item);
+            setShowEditModal(true);
+          }}
+          className="rounded-full h-8 w-8 hover:cursor-pointer hover:bg-neutral-300 transition-colors flex justify-center items-center bg-neutral-200"
+        >
           <CiEdit className="" />
         </div>
         <div className="rounded-full h-8 w-8 hover:cursor-pointer hover:bg-red-300 transition-colors flex justify-center items-center bg-red-200">

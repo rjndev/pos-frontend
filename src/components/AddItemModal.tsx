@@ -1,35 +1,62 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import SearchInput, { SearchOption } from "./SearchInput";
 import { useListCategories } from "../db/hooks/dbHooks";
 import { useState } from "react";
 import { addItem } from "../db/mutations/itemMutate";
+import { Item } from "../types/Item.type";
 
 export default function MyModal({
   isOpen,
   setIsOpen,
+  item,
 }: {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  item?: Item;
 }) {
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState<number>();
-  const [stock, setStock] = useState<number>();
-  const [hasOptions, setHasOptions] = useState(false);
+  const [name, setName] = useState(item?.name || "");
+  const [price, setPrice] = useState<number | undefined>(item?.price);
+  const [stock, setStock] = useState<number | undefined>(item?.stock);
+  const [hasOptions, setHasOptions] = useState(item?.options || false);
   const [categories] = useListCategories();
-  const [selectedCategory, setSelectedCategory] = useState<SearchOption>({
-    id: "-1",
-    name: "",
-  });
-  const [img, setImg] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState<SearchOption>(
+    categories?.find((cat) => cat.id === item?.category) || {
+      id: "-1",
+      name: "",
+    }
+  );
+  const [img, setImg] = useState(item?.imgUrl || "");
   const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    setName(item?.name!);
+    setPrice(item?.price);
+    setStock(item?.stock);
+    setHasOptions(item?.options!);
+    setSelectedCategory(
+      categories?.find((cat) => cat.id === item?.category) || {
+        id: "-1",
+        name: "",
+      }
+    );
+    setImg(item?.imgUrl!);
+  }, [item]);
 
   function closeModal() {
     setIsOpen(false);
   }
 
   async function handleSubmitButton() {
-    await addItem(name, selectedCategory.id, price!, stock!, hasOptions, img);
+    await addItem(
+      name,
+      selectedCategory.id,
+      price!,
+      stock!,
+      hasOptions,
+      img,
+      item?.id || undefined
+    );
   }
 
   return (
@@ -64,7 +91,7 @@ export default function MyModal({
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
-                    Add Item
+                    {item ? "Edit" : "Add"} Item
                   </Dialog.Title>
 
                   <img
@@ -188,10 +215,13 @@ export default function MyModal({
                       onClick={async () => {
                         setSubmitting(true);
                         await handleSubmitButton();
+                        setSubmitting(false);
                         closeModal();
                       }}
                     >
-                      {submitting ? "Submitting..." : "Add Item!"}
+                      {submitting
+                        ? "Submitting..."
+                        : `${item ? "Edit Item!" : "Add Item!"}`}
                     </button>
                   </div>
                 </Dialog.Panel>
