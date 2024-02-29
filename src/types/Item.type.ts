@@ -1,9 +1,9 @@
 export type Item = {
-  id: string;
+  id?: string;
   name: string;
   category: string;
   price: number;
   stock: number;
-  options: "small" | "medium" | "large";
+  options: boolean;
   imgUrl: string;
 };

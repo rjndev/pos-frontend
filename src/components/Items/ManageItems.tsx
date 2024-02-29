@@ -5,9 +5,10 @@ import { useListCategories, useListItems } from "../../db/hooks/dbHooks";
 import SearchInput, { SearchOption } from "../SearchInput";
 import { useState } from "react";
 import { IoAddOutline } from "react-icons/io5";
+import AddItemModal from "../AddItemModal";
 
 export default function ManageItems() {
-  const [items] = useListItems();
+  const [items, itemsLoading] = useListItems();
   const [categories] = useListCategories();
   const [selectedItem, setSelectedItem] = useState<SearchOption>({
     id: "-1",
@@ -17,20 +18,23 @@ export default function ManageItems() {
     id: "-1",
     name: "",
   });
+  const [showEditModal, setShowEditModal] = useState(false);
 
-  const filteredItems = items
-    ?.filter((element) => {
-      if (selectedCategory.id === "-1") return true;
-      else return element.category === selectedCategory.id;
-    })
-    .filter((el) => {
-      if (selectedItem.id === "-1") return true;
-      else return el.name.includes(selectedItem.name);
-    })
-    .map((item) => item);
+  const filteredItems = !itemsLoading
+    ? items
+        ?.filter((element) => {
+          if (selectedCategory.id === "-1") return true;
+          else return element.category === selectedCategory.id;
+        })
+        .filter((el) => {
+          if (selectedItem.id === "-1") return true;
+          else return el.name.includes(selectedItem.name);
+        })
+        .map((item) => item)
+    : [];
 
   console.log("ITEMS");
-  console.log(items);
+  console.log(filteredItems);
 
   console.log("CATEGORIES");
   console.log(categories);
@@ -39,9 +43,12 @@ export default function ManageItems() {
     <>
       <div className="flex items-center justify-between pr-6">
         <h2 className="text-black font-bold text-xl">Manage Items</h2>
-        <button className="rounded-lg group hover:bg-purple-500 transition-colors h-8 w-24 px-4 gap-2 flex items-center justify-center bg-purple-400">
-          <IoAddOutline className="w-5 h-5 group-hover:text-white transition-colors group-hover:font-semibold" />
-          <p className="group-hover:text-white group-hover:font-semibold transition-colors">
+        <button
+          onClick={() => setShowEditModal(true)}
+          className="rounded-lg group hover:bg-purple-600 transition-colors h-8 w-24 px-4 gap-2 flex items-center justify-center bg-purple-500"
+        >
+          <IoAddOutline className="w-5 h-5 group-hover:w-6 group-hover:h-6 text-white transition-colors group-hover:font-semibold" />
+          <p className="text-white group-hover:font-bold font-semibold transition-colors">
             Add
           </p>
         </button>
@@ -59,7 +66,14 @@ export default function ManageItems() {
           placeholder="Search Item"
           selected={selectedItem}
           setSelected={setSelectedItem}
-          items={items!}
+          items={
+            items?.map((i) => {
+              return {
+                id: i.id || "",
+                name: i.name,
+              };
+            }) || []
+          }
         />
       </div>
       {/* List container  */}
@@ -68,6 +82,7 @@ export default function ManageItems() {
           <ManageItemRow key={item.id} item={item} />
         ))}
       </div>
+      <AddItemModal isOpen={showEditModal} setIsOpen={setShowEditModal} />
     </>
   );
 }

@@ -43,7 +43,7 @@ export default function SearchInput({
         <div className="relative mt-1">
           <div className="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left border  sm:text-sm">
             <Combobox.Input
-              className={`w-full  py-2 pl-3 pr-10 text-sm leading-5 ring-0   focus:outline-purple-400   ${
+              className={`w-full text-[16px]  py-2 pl-3 pr-10 text-lg leading-5 ring-0   outline-purple-400   ${
                 selected.id === "-1" ? "text-gray-400" : "text-gray-900"
               }`}
               placeholder={placeholder}
