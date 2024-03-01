@@ -18,7 +18,7 @@ export default function MyModal({
   const [name, setName] = useState(item?.name || "");
   const [price, setPrice] = useState<number | undefined>(item?.price);
   const [stock, setStock] = useState<number | undefined>(item?.stock);
-  const [hasOptions, setHasOptions] = useState(item?.options || false);
+  const [hasOptions, setHasOptions] = useState(false);
   const [categories] = useListCategories();
   const [selectedCategory, setSelectedCategory] = useState<SearchOption>(
     categories?.find((cat) => cat.id === item?.category) || {
@@ -33,7 +33,7 @@ export default function MyModal({
     setName(item?.name!);
     setPrice(item?.price);
     setStock(item?.stock);
-    setHasOptions(item?.options!);
+    setHasOptions(item?.options! || false);
     setSelectedCategory(
       categories?.find((cat) => cat.id === item?.category) || {
         id: "-1",
@@ -58,6 +58,14 @@ export default function MyModal({
       item?.id || undefined
     );
   }
+
+  const enable =
+    name?.length > 0 &&
+    price! > 0 &&
+    stock! > 0 &&
+    hasOptions !== undefined &&
+    selectedCategory.id !== "-1" &&
+    !!img;
 
   return (
     <>
@@ -210,8 +218,8 @@ export default function MyModal({
                   <div className="mt-4">
                     <button
                       type="button"
-                      disabled={submitting}
-                      className="flex mx-auto mt-8 justify-center rounded-md border border-transparent bg-purple-400 px-4 py-2 text-sm font-medium text-white hover:bg-purple-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-700 focus-visible:ring-offset-2"
+                      disabled={submitting || !enable}
+                      className="flex mx-auto disabled:cursor-not-allowed mt-8 justify-center rounded-md border border-transparent bg-purple-400 px-4 py-2 text-sm font-medium text-white hover:bg-purple-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-700 focus-visible:ring-offset-2"
                       onClick={async () => {
                         setSubmitting(true);
                         await handleSubmitButton();
