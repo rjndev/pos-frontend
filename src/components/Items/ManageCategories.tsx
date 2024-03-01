@@ -4,10 +4,18 @@ import { deleteCategory } from "../../db/mutations/categoryMutate";
 import { IoAddOutline } from "react-icons/io5";
 import { useState } from "react";
 import { addCategory } from "../../db/mutations/categoryMutate";
+import { AiOutlineLoading } from "react-icons/ai";
 
 export default function ManageCategories() {
-  const [categories] = useListCategories();
+  const [categories, isLoading] = useListCategories();
   const [input, setInput] = useState("");
+
+  if (isLoading)
+    return (
+      <div className="flex items-center justify-center h-full animate-spin">
+        <AiOutlineLoading className="w-10 h-10" />
+      </div>
+    );
 
   return (
     <div>

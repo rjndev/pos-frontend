@@ -7,10 +7,11 @@ import { useState } from "react";
 import { IoAddOutline } from "react-icons/io5";
 import AddItemModal from "../modals/AddItemModal";
 import DeleteItemModal from "../modals/DeleteItemModal";
+import { AiOutlineLoading } from "react-icons/ai";
 
 export default function ManageItems() {
   const [items, itemsLoading] = useListItems();
-  const [categories] = useListCategories();
+  const [categories, catLoading] = useListCategories();
   const [selectedItem, setSelectedItem] = useState<SearchOption>({
     id: "-1",
     name: "",
@@ -22,6 +23,8 @@ export default function ManageItems() {
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [clickedItem, setClickedItem] = useState<Item>();
+
+  const isLoading = itemsLoading || catLoading;
 
   const filteredItems = !itemsLoading
     ? items
@@ -35,6 +38,13 @@ export default function ManageItems() {
         })
         .map((item) => item)
     : [];
+
+  if (isLoading)
+    return (
+      <div className="flex items-center justify-center h-full animate-spin">
+        <AiOutlineLoading className="w-10 h-10" />
+      </div>
+    );
 
   return (
     <>
