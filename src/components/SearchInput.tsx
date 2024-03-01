@@ -4,7 +4,7 @@ import { FaCheck, FaChevronDown } from "react-icons/fa";
 import { FcCancel } from "react-icons/fc";
 
 export interface SearchOption {
-  id: string;
+  id?: string;
   name: string;
 }
 

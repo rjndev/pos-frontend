@@ -5,6 +5,8 @@ import "./index.css";
 import ManageItemsPage from "./pages/manage-items";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
+import CategoriesPage from "./pages/categories";
+import MobileBar from "./components/MobileBar";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -13,7 +15,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Sidebar />
         <Routes>
           <Route path="/" element={<ManageItemsPage />} />
+          <Route path="/categories" element={<CategoriesPage />} />
         </Routes>
+        <MobileBar />
       </main>
     </BrowserRouter>
   </React.StrictMode>

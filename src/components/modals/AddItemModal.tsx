@@ -50,7 +50,7 @@ export default function MyModal({
   async function handleSubmitButton() {
     await addItem(
       name,
-      selectedCategory.id,
+      selectedCategory.id!,
       price!,
       stock!,
       hasOptions,

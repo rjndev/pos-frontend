@@ -59,7 +59,7 @@ export default function MyModal({
                   <div className="mt-4">
                     <button
                       type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-red-200 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-400 hover:text-white focus:outline-none "
+                      className="inline-flex justify-center rounded-md border border-transparent bg-red-200 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-400 hover:text-white focus:outline-none"
                       onClick={async () => {
                         await deleteItem(selectedItem?.id!);
                         closeModal();

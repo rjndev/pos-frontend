@@ -115,7 +115,7 @@ function ManageItemRow({
 
       <p className="text-lg font-semibold flex-1">{item.name}</p>
 
-      <div>
+      <div className="hidden lg:block">
         <p className="text-sm font-light">
           Stock : <span className="font-normal">{item.stock}</span>
         </p>
@@ -124,13 +124,13 @@ function ManageItemRow({
         </p>
       </div>
 
-      <div className="flex gap-2">
+      <div className="flex flex-col md:flex-row gap-2">
         <div
           onClick={() => {
             setClickedItem(item);
             setShowEditModal(true);
           }}
-          className="rounded-full h-8 w-8 hover:cursor-pointer hover:bg-neutral-300 transition-colors flex justify-center items-center bg-neutral-200"
+          className="rounded-full h-6 w-6 md:h-8 md:w-8 hover:cursor-pointer hover:bg-neutral-300 transition-colors flex justify-center items-center bg-neutral-200"
         >
           <CiEdit className="" />
         </div>
@@ -139,7 +139,7 @@ function ManageItemRow({
             setClickedItem(item);
             setShowDeleteModal(true);
           }}
-          className="rounded-full h-8 w-8 hover:cursor-pointer hover:bg-red-300 transition-colors flex justify-center items-center bg-red-200"
+          className="rounded-full h-6 w-6 md:h-8 md:w-8 hover:cursor-pointer hover:bg-red-300 transition-colors flex justify-center items-center bg-red-200"
         >
           <FaRegTrashAlt />
         </div>
