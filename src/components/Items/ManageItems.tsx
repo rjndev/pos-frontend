@@ -51,7 +51,10 @@ export default function ManageItems() {
       <div className="flex items-center justify-between pr-6 ">
         <h2 className="text-black font-bold text-xl">Manage Items</h2>
         <button
-          onClick={() => setShowEditModal(true)}
+          onClick={() => {
+            setClickedItem(undefined);
+            setShowEditModal(true);
+          }}
           className="rounded-lg group hover:bg-purple-600 transition-colors h-8 w-24 px-4 gap-2 flex items-center justify-center bg-purple-500"
         >
           <IoAddOutline className="w-5 h-5 group-hover:w-6 group-hover:h-6 text-white transition-colors group-hover:font-semibold" />
