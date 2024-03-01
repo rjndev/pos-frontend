@@ -25,7 +25,7 @@ export default function ManageCategories() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Enter Category Name here..."
-            className="border text-md placeholder:text-sm rounded-lg w-max-[300px] outline-purple-400 px-3 py-1"
+            className="border mt-2 text-md placeholder:text-sm rounded-lg w-max-[300px] outline-purple-400 px-3 py-1"
             type="text"
           />
         </div>

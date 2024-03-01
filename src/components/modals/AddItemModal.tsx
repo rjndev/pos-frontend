@@ -41,7 +41,7 @@ export default function MyModal({
       }
     );
     setImg(item?.imgUrl!);
-  }, [item]);
+  }, [item, categories]);
 
   function closeModal() {
     setIsOpen(false);
