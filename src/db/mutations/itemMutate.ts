@@ -1,4 +1,4 @@
-import { push, ref, update } from "firebase/database";
+import { push, ref, update, remove } from "firebase/database";
 import { Item } from "../../types/Item.type";
 import { firebaseDB } from "../database";
 
@@ -35,4 +35,8 @@ export function addItem(
   }
 
   return update(ref(firebaseDB), updates);
+}
+
+export function deleteItem(itemId: string) {
+  return remove(ref(firebaseDB, `/items/${itemId}`));
 }

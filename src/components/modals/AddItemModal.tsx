@@ -1,10 +1,10 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useEffect } from "react";
-import SearchInput, { SearchOption } from "./SearchInput";
-import { useListCategories } from "../db/hooks/dbHooks";
+import SearchInput, { SearchOption } from "../SearchInput";
+import { useListCategories } from "../../db/hooks/dbHooks";
 import { useState } from "react";
-import { addItem } from "../db/mutations/itemMutate";
-import { Item } from "../types/Item.type";
+import { addItem } from "../../db/mutations/itemMutate";
+import { Item } from "../../types/Item.type";
 
 export default function MyModal({
   isOpen,

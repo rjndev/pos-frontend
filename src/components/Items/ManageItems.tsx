@@ -5,7 +5,8 @@ import { useListCategories, useListItems } from "../../db/hooks/dbHooks";
 import SearchInput, { SearchOption } from "../SearchInput";
 import { useState } from "react";
 import { IoAddOutline } from "react-icons/io5";
-import AddItemModal from "../AddItemModal";
+import AddItemModal from "../modals/AddItemModal";
+import DeleteItemModal from "../modals/DeleteItemModal";
 
 export default function ManageItems() {
   const [items, itemsLoading] = useListItems();
@@ -19,6 +20,7 @@ export default function ManageItems() {
     name: "",
   });
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [clickedItem, setClickedItem] = useState<Item>();
 
   const filteredItems = !itemsLoading
@@ -75,6 +77,7 @@ export default function ManageItems() {
       <div className="mt-6 space-y-2 overflow-auto h-full px-2">
         {filteredItems?.map((item) => (
           <ManageItemRow
+            setShowDeleteModal={setShowDeleteModal}
             setClickedItem={setClickedItem}
             setShowEditModal={setShowEditModal}
             key={item.id}
@@ -87,6 +90,11 @@ export default function ManageItems() {
         isOpen={showEditModal}
         setIsOpen={setShowEditModal}
       />
+      <DeleteItemModal
+        selectedItem={clickedItem!}
+        isOpen={showDeleteModal}
+        setIsOpen={setShowDeleteModal}
+      />
     </>
   );
 }
@@ -94,10 +102,12 @@ function ManageItemRow({
   item,
   setClickedItem,
   setShowEditModal,
+  setShowDeleteModal,
 }: {
   item: Item;
   setClickedItem: React.Dispatch<React.SetStateAction<Item | undefined>>;
   setShowEditModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowDeleteModal: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   return (
     <div className="flex justify-between items-center gap-x-12 border px-6 py-2 rounded-lg">
@@ -124,7 +134,13 @@ function ManageItemRow({
         >
           <CiEdit className="" />
         </div>
-        <div className="rounded-full h-8 w-8 hover:cursor-pointer hover:bg-red-300 transition-colors flex justify-center items-center bg-red-200">
+        <div
+          onClick={() => {
+            setClickedItem(item);
+            setShowDeleteModal(true);
+          }}
+          className="rounded-full h-8 w-8 hover:cursor-pointer hover:bg-red-300 transition-colors flex justify-center items-center bg-red-200"
+        >
           <FaRegTrashAlt />
         </div>
       </div>
