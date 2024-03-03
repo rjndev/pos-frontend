@@ -59,9 +59,9 @@ export default function ManageCategories() {
           return (
             <div
               key={category.id}
-              className="rounded-lg flex items-center gap-8 bg-purple-300 py-2 px-4"
+              className="rounded-lg flex items-center gap-8 bg-purple-400 py-2 px-4"
             >
-              <p>{category.name}</p>
+              <p className="text-white">{category.name}</p>
               <div
                 onClick={async () => {
                   await deleteCategory(category.id!);
