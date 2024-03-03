@@ -7,10 +7,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import CategoriesPage from "./pages/categories";
 import MobileBar from "./components/MobileBar";
+import { Analytics } from "@vercel/analytics/react";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
+      <Analytics />
       <main className="p-10 flex gap-4 bg-neutral-100 h-max">
         <Sidebar />
         <Routes>
