@@ -24,11 +24,15 @@ export default function Sidebar() {
         <Link
           to="/"
           className={`flex px-4 items-center  gap-6 rounded-lg mx-4 group py-2 hover:bg-purple-400 hover:cursor-pointer transition-colors ${
-            !isCategories && "bg-purple-400 "
+            !isCategories && "bg-purple-400 text-white "
           }`}
         >
-          <CiViewList className="h-5 w-5 group-hover:text-white" />
-          <p className="text-black font-semibold group-hover:text-white">
+          <CiViewList className="h-5 w-5 " />
+          <p
+            className={`text-black font-semibold ${
+              !isCategories && "text-white"
+            } `}
+          >
             Items
           </p>
         </Link>
@@ -36,11 +40,15 @@ export default function Sidebar() {
         <Link
           to="/categories"
           className={`flex px-4 items-center  gap-6 rounded-lg mx-4 group py-2 hover:bg-purple-400 hover:cursor-pointer transition-colors ${
-            isCategories && "bg-purple-400 "
+            isCategories && "bg-purple-400 text-white "
           }`}
         >
-          <BiCategory className="h-5 w-5 group-hover:text-white" />
-          <p className="text-black font-semibold group-hover:text-white">
+          <BiCategory className="h-5 w-5 " />
+          <p
+            className={`text-black font-semibold ${
+              isCategories && "text-white"
+            } `}
+          >
             Categories
           </p>
         </Link>
